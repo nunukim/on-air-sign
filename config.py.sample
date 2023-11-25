@@ -1,1 +1,1 @@
-IFTTT_KEY = "your ifttt webhook key here"
+MAGIC_HUE_LOCAL_IP = "192.168.xx.xx"

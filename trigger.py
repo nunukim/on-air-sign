@@ -5,18 +5,14 @@ import argparse
 from os import path
 from datetime import datetime
 
+from magichue import LocalLight
 
 # load config.py file
 import config
 
-def trigger_ifttt(event):
-    """
-    POST to the IFTTT webhook URL
-    """
-
-    ifttt_url = f"https://maker.ifttt.com/trigger/{event}/with/key/{config.IFTTT_KEY}"
-    return request.urlopen(ifttt_url, bytes())
-
+def trigger_local(on:bool):
+    light = LocalLight(config.MAGIC_HUE_LOCAL_IP)
+    light.on = on
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -24,15 +20,9 @@ if __name__ == '__main__':
     parser.add_argument("-device")
     parser.add_argument("-event")
     parser.add_argument("-process")
-    parser.add_argument("-activeCount")
+    parser.add_argument("-activeCount", type=int)
     args = parser.parse_args()
 
     print(f"# {datetime.now().isoformat()} - {args}")
-
-    if args.device == 'camera':
-        if args.event == 'on':
-            r = trigger_ifttt('on_air_sign_enabled')
-        elif args.event == 'off':
-            r = trigger_ifttt('on_air_sign_disabled')
-
+    trigger_local(args.activeCount > 0)
 
