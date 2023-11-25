@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/local/bin/python3
 
 from urllib import request
 import argparse
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     parser.add_argument("-device")
     parser.add_argument("-event")
     parser.add_argument("-process")
-
+    parser.add_argument("-activeCount")
     args = parser.parse_args()
 
     print(f"# {datetime.now().isoformat()} - {args}")
